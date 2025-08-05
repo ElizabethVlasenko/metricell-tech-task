@@ -1,4 +1,6 @@
+using InterviewTest.Server.Data;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 #region Prepare Sqlite
 var connectionStringBuilder = new SqliteConnectionStringBuilder() { DataSource = "./SqliteDB.db" };
@@ -11,14 +13,14 @@ using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionS
     delTableCmd.ExecuteNonQuery();
 
     var createTableCmd = connection.CreateCommand();
-    createTableCmd.CommandText = "CREATE TABLE Employees(Name VARCHAR(50), Value INT)";
+    createTableCmd.CommandText = "CREATE TABLE Employees(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(50), Value INT)";
     createTableCmd.ExecuteNonQuery();
 
     //Fill with data
     using (var transaction = connection.BeginTransaction())
     {
         var insertCmd = connection.CreateCommand();
-        insertCmd.CommandText = @"INSERT INTO Employees VALUES
+        insertCmd.CommandText = @"INSERT INTO Employees (Name, Value) VALUES
                         ('Abul', 1357),
                         ('Adolfo', 1224),
                         ('Alexander', 2296),
@@ -100,6 +102,14 @@ using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionS
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<EmployeeDbContext>(options =>
+{
+    var connectionStringBuilder = new SqliteConnectionStringBuilder() { DataSource = "SqliteDB.db" };
+    options.UseSqlite(connectionStringBuilder.ConnectionString);
+});
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();
 
