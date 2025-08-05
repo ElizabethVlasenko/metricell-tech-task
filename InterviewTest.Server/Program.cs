@@ -1,4 +1,5 @@
 using InterviewTest.Server.Data;
+using InterviewTest.Server.Repository;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
