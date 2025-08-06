@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import EmployeesTable from "./features/employees/EmployeesTable";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 function App() {
-    const [employeeCount, setEmployeeCount] = useState<number>(0);
-
-    useEffect(() => {
-        checkConnectivity();
-    }, []);
-
-    return (<>
-        <div>Connectivity check: {employeeCount > 0 ? `OK (${employeeCount})` : `NOT READY`}</div>
-        <div>Complete your app here</div>
-    </>);
-
-    async function checkConnectivity() {
-        const response = await fetch('api/employees');
-        const data = await response.json();
-        setEmployeeCount(data.length);
-    }
+  return (
+    <QueryClientProvider client={queryClient}>
+      <EmployeesTable />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
