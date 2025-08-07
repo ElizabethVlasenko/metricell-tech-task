@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EmployeesTable from "./features/employees/EmployeesTable";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Container from "./ui/Container";
+import Header from "./ui/Header";
+import Footer from "./ui/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,12 +15,18 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Container bgClassName="bg-gray-100">
-        <EmployeesTable />
-      </Container>
-    </QueryClientProvider>
+    <div className="flex flex-col min-h-screen">
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Header />
+        <Container className="bg-gray-50 flex-1">
+          <main>
+            <EmployeesTable />
+          </main>
+        </Container>
+        <Footer />
+      </QueryClientProvider>
+    </div>
   );
 }
 

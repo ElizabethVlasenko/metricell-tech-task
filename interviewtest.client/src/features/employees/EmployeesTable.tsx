@@ -8,12 +8,16 @@ export default function EmployeesTable() {
   const totalNumberOfEmployees = employees.length;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-xl font-medium text-center p-10 text-gray-600">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div className="text-xl font-medium text-center m-10 text-gray-600">
+      <div className="text-xl font-medium text-center p-10 text-gray-600">
         Error loading employees: {error?.message || "Something went wrong"}
       </div>
     );
