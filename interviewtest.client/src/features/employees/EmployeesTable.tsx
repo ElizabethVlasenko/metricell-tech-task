@@ -24,12 +24,12 @@ export default function EmployeesTable() {
   }
 
   return (
-    <Table columns="grid-cols-[auto_1fr_1fr]">
+    <Table columns="grid-cols-[auto_1fr_1fr_auto]">
       <Table.Header>
         <div role="columnheader">Id</div>
         <div role="columnheader">Name</div>
         <div role="columnheader">Value</div>
-        <div role="columnheader"></div>
+        <div role="columnheader">Actions</div>
       </Table.Header>
 
       <Table.Body

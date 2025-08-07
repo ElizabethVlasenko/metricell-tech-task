@@ -59,7 +59,7 @@ namespace InterviewTest.Server.Repository
                 throw new KeyNotFoundException($"Employee with ID {employeeToUpdate.Id} not found.");
             }
 
-            _context.Update(employeeToUpdate);
+            _context.Entry(employeeToUpdate).CurrentValues.SetValues(employee);
             await _context.SaveChangesAsync();
 
             return true;

@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import EmployeesTable from "./features/employees/EmployeesTable";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import EmployeesTable from "./features/employees/EmployeesTable";
 import Container from "./ui/Container";
-import Header from "./ui/Header";
 import Footer from "./ui/Footer";
+import Header from "./ui/Header";
 
 const queryClient = new QueryClient({
   defaultOptions: {

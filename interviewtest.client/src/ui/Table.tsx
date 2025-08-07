@@ -12,7 +12,7 @@ function Table({
   return (
     <TableContext.Provider value={{ columns }}>
       <div
-        className="border border-gray-200 text-md bg-gray-50 rounded-md"
+        className="border border-gray-300 text-md bg-gray-50 rounded-4xl overflow-hidden"
         role="table"
       >
         {children}
@@ -26,7 +26,7 @@ function Header({ children }: { children: React.ReactNode }) {
   return (
     <div
       role="row"
-      className={`grid gap-x-10 items-center py-6 px-10 bg-grey-50 border-b border-gray-100 uppercase font-semibold text-gray-600 :last-border-b-0 ${columns}`}
+      className={`grid gap-x-10 items-center py-4 px-6 bg-grey-50 border-b border-gray-100 uppercase font-semibold text-gray-600 :last-border-b-0 ${columns}`}
     >
       {children}
     </div>
@@ -38,7 +38,7 @@ function Row({ children }: { children: React.ReactNode }) {
   return (
     <div
       role="row"
-      className={`grid gap-x-10 items-center py-6 px-10 bg-gray-100 odd:bg-gray-50 ${columns}`}
+      className={`grid gap-x-10 items-center py-4 px-6 bg-gray-100 odd:bg-gray-50 ${columns}`}
     >
       {children}
     </div>
