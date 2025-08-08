@@ -1,4 +1,8 @@
+import { Plus } from "lucide-react";
+import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
+import AddEmployee from "./AddEmployee";
 import EmployeeRow from "./EmployeeRow";
 import { useEmployees } from "./useEmployees";
 
@@ -29,7 +33,18 @@ export default function EmployeesTable() {
         <div role="columnheader">Id</div>
         <div role="columnheader">Name</div>
         <div role="columnheader">Value</div>
-        <div role="columnheader">Actions</div>
+        <div role="columnheader">
+          <Modal>
+            <Modal.Open opens="newEmployee">
+              <Button size="small" className="flex gap-2 items-center">
+                <Plus className="size-5" /> New entry
+              </Button>
+            </Modal.Open>
+            <Modal.Window name="newEmployee">
+              <AddEmployee />
+            </Modal.Window>
+          </Modal>
+        </div>
       </Table.Header>
 
       <Table.Body

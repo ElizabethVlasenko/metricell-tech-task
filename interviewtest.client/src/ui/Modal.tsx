@@ -92,7 +92,7 @@ function Window({ children, name }: WindowPropsType) {
           className="absolute border-none bg-none p-1 cursor-pointer left-auto right-5 top-5 bg-gray-100 rounded-full"
           onClick={close}
         >
-          <X className="h-6 w-6 text-secondary-600" />
+          <X className="h-6 w-6 text-gray-600" />
         </button>
         <div className="overflow-y-auto flex-grow p-4">
           {cloneElement(children, { onCloseModal: close })}

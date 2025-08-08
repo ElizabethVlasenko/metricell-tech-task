@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import EmployeesTable from "./features/employees/EmployeesTable";
+import ListEmployeesPage from "./pages/ListEmployeesPage";
 import Container from "./ui/Container";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
@@ -20,9 +20,7 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <Header />
         <Container className="bg-gray-50 flex-1">
-          <main>
-            <EmployeesTable />
-          </main>
+          <ListEmployeesPage />
         </Container>
         <Footer />
       </QueryClientProvider>

@@ -1,43 +1,37 @@
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { type Employee } from "../../utils/types/employeesTypes";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useEditEmployee } from "./useEditEmployee";
+import { useAddEmployee } from "./useAddEmployee";
 import Heading from "../../ui/Heading";
 
-type EditEmployeePropsType = {
-  initialValues: Employee;
+type AddEmployeePropsType = {
   onCloseModal?: () => void;
 };
 
-export default function EditEmployee({
-  initialValues,
-  onCloseModal,
-}: EditEmployeePropsType) {
-  const { editEmployeeAsync, isEditing, error: fetchError } = useEditEmployee();
+export default function AddEmployee({ onCloseModal }: AddEmployeePropsType) {
+  const { addEmployeeAsync, isAdding, error: fetchError } = useAddEmployee();
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<Employee>({
-    defaultValues: initialValues,
-  });
+  } = useForm<Employee>();
 
   const onSubmit: SubmitHandler<Employee> = async (data) => {
-    await editEmployeeAsync(data);
+    await addEmployeeAsync(data);
     onCloseModal?.();
   };
 
   return (
     <div className="flex flex-col gap-5">
-      <Heading>Edit record</Heading>
+      <Heading>Add new record</Heading>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-full flex flex-col gap-5"
       >
         {fetchError && (
           <span className="text-red-700 text-md">
-            Couldn't edit the employee. Please, try again later.
+            Couldn't Add the employee. Please, try again later.
           </span>
         )}
         <FormRow label={"Name"} error={errors.name?.message} required>
@@ -73,13 +67,13 @@ export default function EditEmployee({
         <div className="flex gap-3 justify-end">
           <Button
             variant="secondary"
-            disabled={isEditing}
+            disabled={isAdding}
             onClick={() => onCloseModal?.()}
           >
             Cancel
           </Button>
-          <Button variant="primary" disabled={isEditing} type="submit">
-            Confirm
+          <Button variant="primary" disabled={isAdding} type="submit">
+            Add
           </Button>
         </div>
       </form>

@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Heading from "./Heading";
 
 type ConfirmDeletePropsType = {
   resourceName: string;
@@ -17,7 +18,7 @@ export default function ConfirmDelete({
 }: ConfirmDeletePropsType) {
   return (
     <div className="flex flex-col gap-5 w-md">
-      <h3 className="text-3xl">Delete {resourceName}</h3>
+      <Heading>Delete {resourceName}</Heading>
       <p>
         Are you sure you want to delete this {resourceName} permanently? This
         action cannot be undone.

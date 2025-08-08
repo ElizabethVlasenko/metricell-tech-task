@@ -1,11 +1,12 @@
 ﻿using InterviewTest.Server.Model;
+using InterviewTest.Server.Model.DTO;
 
 namespace InterviewTest.Server.Repository
 {
     public interface IEmployeeRepository
     {
         Task<IEnumerable<Employee>> GetAllEmployees();
-        Task<bool> AddEmployee(Employee employee);
+        Task<Employee> AddEmployee(EmployeeCreateDto employee);
         Task<bool> UpdateEmployee(Employee employee);
         Task<bool> DeleteEmployee(int id);
     }

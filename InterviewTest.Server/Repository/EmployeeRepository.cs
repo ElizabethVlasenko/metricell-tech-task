@@ -1,5 +1,6 @@
 ﻿using InterviewTest.Server.Data;
 using InterviewTest.Server.Model;
+using InterviewTest.Server.Model.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewTest.Server.Repository
@@ -19,19 +20,23 @@ namespace InterviewTest.Server.Repository
             return employees;
         }
 
-        public async Task<bool> AddEmployee(Employee employee)
+        public async Task<Employee> AddEmployee(EmployeeCreateDto employee)
         {
-
-            var employeeToUpdate = await _context.Employees.FindAsync(employee.Id);
-
             if (employee == null)
             {
-                throw new KeyNotFoundException($"Employee with ID {employeeToUpdate.Id} not found.");
+                return new Employee();
             }
-            var result = await _context.AddAsync(employee);
+
+            Employee employeeToAdd = new Employee
+            {
+                Name = employee.Name,
+                Value = employee.Value
+            };
+
+            var result = await _context.AddAsync(employeeToAdd);
             await _context.SaveChangesAsync();
 
-            return true;
+            return result.Entity;
 
         }
 
@@ -54,7 +59,7 @@ namespace InterviewTest.Server.Repository
         {
             var employeeToUpdate = await _context.Employees.FindAsync(employee.Id);
 
-            if (employee == null)
+            if (employeeToUpdate == null)
             {
                 throw new KeyNotFoundException($"Employee with ID {employeeToUpdate.Id} not found.");
             }

@@ -16,7 +16,7 @@ export default function FormRow({
       {label && (
         <label
           htmlFor={children.props.id}
-          className="block text-sm font-medium text-secondary-700 mb-2"
+          className="block text-sm font-medium text-gray-700 mb-2"
         >
           {label} {required && <span className="font-bold">*</span>}
         </label>

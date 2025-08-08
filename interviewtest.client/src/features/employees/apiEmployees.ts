@@ -1,4 +1,8 @@
-import { Employee, Employees } from "../../utils/types/employeesTypes";
+import {
+  Employee,
+  EmployeeDto,
+  Employees,
+} from "../../utils/types/employeesTypes";
 
 export async function getAllEmployees() {
   try {
@@ -38,6 +42,29 @@ export async function editEmployeeById(employee: Employee) {
   try {
     const response = await fetch(`api/employees`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(employee),
+    });
+
+    console.log(response);
+    if (!response.ok) {
+      throw new Error("Failed to edit employee");
+    }
+
+    return employee;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Employee could not be edited");
+  }
+}
+
+export async function addEmployee(employee: EmployeeDto) {
+  console.log(JSON.stringify(employee));
+  try {
+    const response = await fetch(`api/employees`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,4 +1,5 @@
 ﻿using InterviewTest.Server.Model;
+using InterviewTest.Server.Model.DTO;
 using InterviewTest.Server.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace InterviewTest.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] Employee employee)
+        public async Task<IActionResult> AddAsync([FromBody] EmployeeCreateDto employee)
         {
 
             if (employee == null || string.IsNullOrEmpty(employee.Name) || employee.Value < 0)
@@ -43,8 +44,8 @@ namespace InterviewTest.Server.Controllers
             }
             try
             {
-                await _employeeRepository.AddEmployee(employee);
-                return CreatedAtAction(nameof(GetAsync), new { id = employee.Id }, employee);
+                Employee result = await _employeeRepository.AddEmployee(employee);
+                return StatusCode(201, result);
             }
             catch (KeyNotFoundException ex)
             {
