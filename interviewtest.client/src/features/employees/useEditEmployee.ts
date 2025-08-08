@@ -11,7 +11,6 @@ export function useEditEmployee() {
   } = useMutation({
     mutationFn: editEmployeeById,
     onSuccess: () => {
-      console.log("success");
       queryClient.invalidateQueries({ queryKey: ["employees"] });
     },
     onError: (error) => {

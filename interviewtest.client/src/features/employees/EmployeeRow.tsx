@@ -16,9 +16,9 @@ export default function EmployeeRow({ employee }: EmployeeRowType) {
 
   return (
     <Table.Row>
-      <p>{id}</p>
-      <p>{name}</p>
-      <p>{value}</p>
+      <p className="text-gray-800">{id}</p>
+      <p className="text-gray-800">{name}</p>
+      <p className="text-gray-800">{value}</p>
       <div className="flex gap-2">
         <Modal>
           <Modal.Open opens="editEmployee">

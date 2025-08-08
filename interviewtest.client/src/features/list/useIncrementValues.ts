@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addEmployee } from "./apiEmployees";
+import { incrementValues } from "./apiList";
 
-export function useAddEmployee() {
+export function useIncrementValues() {
   const queryClient = useQueryClient();
 
   const {
-    isPending: isAdding,
-    mutateAsync: addEmployeeAsync,
+    isPending: isLoading,
+    mutateAsync: incrementValuesAsync,
     error,
   } = useMutation({
-    mutationFn: addEmployee,
+    mutationFn: incrementValues,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employees"] });
     },
     onError: (error) => {
-      console.error("Error adding employee:", error);
+      console.error("Error executing the increment function:", error);
     },
   });
 
   return {
-    isAdding,
-    addEmployeeAsync,
+    isLoading,
+    incrementValuesAsync,
     error,
   };
 }

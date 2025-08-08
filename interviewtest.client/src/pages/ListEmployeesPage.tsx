@@ -4,11 +4,15 @@ import Heading from "../ui/Heading";
 
 export default function ListEmployeesPage() {
   return (
-    <main className="flex justify-around gap-4 flex-col py-4">
-      <Heading>List Actions</Heading>
-      <ListActions />
-      <Heading>Employees</Heading>
-      <EmployeesTable />
+    <main className="py-4">
+      <section className="mb-6 flex flex-col gap-4">
+        <Heading>List Actions</Heading>
+        <ListActions />
+      </section>
+      <section className="flex flex-col gap-4">
+        <Heading>Employees</Heading>
+        <EmployeesTable />
+      </section>
     </main>
   );
 }

@@ -111,6 +111,7 @@ builder.Services.AddDbContext<EmployeeDbContext>(options =>
 });
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IListRepository, ListRepository>();
 
 var app = builder.Build();
 
