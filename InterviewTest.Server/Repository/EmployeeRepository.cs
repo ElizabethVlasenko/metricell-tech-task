@@ -46,7 +46,7 @@ namespace InterviewTest.Server.Repository
 
             if (employee == null)
             {
-                throw new KeyNotFoundException($"Employee with ID {id} not found.");
+                return false;
             }
 
             _context.Employees.Remove(employee);
@@ -61,7 +61,7 @@ namespace InterviewTest.Server.Repository
 
             if (employeeToUpdate == null)
             {
-                throw new KeyNotFoundException($"Employee with ID {employeeToUpdate.Id} not found.");
+                return false;
             }
 
             _context.Entry(employeeToUpdate).CurrentValues.SetValues(employee);

@@ -4,6 +4,7 @@ import FormRow from "../../ui/FormRow";
 import { type Employee } from "../../utils/types/employeesTypes";
 import { useAddEmployee } from "./useAddEmployee";
 import Heading from "../../ui/Heading";
+import { letterOnlyRegex } from "../../utils/const/regexConst";
 
 type AddEmployeePropsType = {
   onCloseModal?: () => void;
@@ -44,7 +45,11 @@ export default function AddEmployee({ onCloseModal }: AddEmployeePropsType) {
               minLength: {
                 value: 3,
                 message: "Name should be at least 3 characters long.",
-              },
+                },
+                pattern: {
+                    value: letterOnlyRegex,
+                    message: 'Only letters are allowed'
+                }
             })}
           />
         </FormRow>

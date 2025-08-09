@@ -4,6 +4,7 @@ import { type Employee } from "../../utils/types/employeesTypes";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEditEmployee } from "./useEditEmployee";
 import Heading from "../../ui/Heading";
+import { letterOnlyRegex } from "../../utils/const/regexConst";
 
 type EditEmployeePropsType = {
   initialValues: Employee;
@@ -50,7 +51,11 @@ export default function EditEmployee({
               minLength: {
                 value: 3,
                 message: "Name should be at least 3 characters long.",
-              },
+                },
+                pattern: {
+                    value: letterOnlyRegex,
+                    message: 'Only letters are allowed'
+                }
             })}
           />
         </FormRow>

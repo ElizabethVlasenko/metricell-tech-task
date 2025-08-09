@@ -24,10 +24,6 @@ namespace InterviewTest.Server.Controllers
                 var employees = await _employeeRepository.GetAllEmployees();
                 return Ok(employees);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
             catch (Exception)
             {
                 return StatusCode(500, "An error occurred while fetching employees.");
@@ -47,10 +43,6 @@ namespace InterviewTest.Server.Controllers
                 Employee result = await _employeeRepository.AddEmployee(employee);
                 return StatusCode(201, result);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
             catch (Exception)
             {
                 return StatusCode(500, "An error occurred while adding an employee.");
@@ -67,12 +59,11 @@ namespace InterviewTest.Server.Controllers
             }
             try
             {
-                await _employeeRepository.UpdateEmployee(employee);
+                bool result = await _employeeRepository.UpdateEmployee(employee);
+
+                if (!result) return BadRequest();
+
                 return NoContent();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
             catch (Exception)
             {
@@ -90,12 +81,11 @@ namespace InterviewTest.Server.Controllers
 
             try
             {
-                await _employeeRepository.DeleteEmployee(id);
+                bool result = await _employeeRepository.DeleteEmployee(id);
+
+                if (!result) return BadRequest();
+
                 return NoContent();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
             catch (Exception)
             {
