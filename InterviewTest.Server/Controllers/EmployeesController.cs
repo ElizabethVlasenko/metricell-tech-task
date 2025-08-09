@@ -2,6 +2,7 @@
 using InterviewTest.Server.Model.DTO;
 using InterviewTest.Server.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace InterviewTest.Server.Controllers
 {
@@ -9,11 +10,13 @@ namespace InterviewTest.Server.Controllers
     [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
     {
-        IEmployeeRepository _employeeRepository;
+        private IEmployeeRepository _employeeRepository;
+        private ILogger<EmployeesController> _logger;
 
-        public EmployeesController(IConfiguration config, IEmployeeRepository employeeRepository)
+        public EmployeesController(IEmployeeRepository employeeRepository, ILogger<EmployeesController> logger)
         {
             _employeeRepository = employeeRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -24,8 +27,9 @@ namespace InterviewTest.Server.Controllers
                 var employees = await _employeeRepository.GetAllEmployees();
                 return Ok(employees);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while fetching employees: {ex.Message}");
                 return StatusCode(500, "An error occurred while fetching employees.");
             }
         }
@@ -36,37 +40,48 @@ namespace InterviewTest.Server.Controllers
 
             if (employee == null || string.IsNullOrEmpty(employee.Name) || employee.Value < 0)
             {
+                _logger.LogError($"One or more of the employee properties are null or invalid. {JsonSerializer.Serialize(employee)}");
                 return BadRequest("Invalid employee data.");
             }
             try
             {
                 Employee result = await _employeeRepository.AddEmployee(employee);
+
+                _logger.LogInformation($"Employee created successfully: {JsonSerializer.Serialize(result)}");
                 return StatusCode(201, result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while creating an employee: {ex.Message}");
                 return StatusCode(500, "An error occurred while adding an employee.");
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] Employee employee)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] EmployeeUpdateDto employee)
         {
 
-            if (employee == null || string.IsNullOrEmpty(employee.Name) || employee.Value < 0)
+            if (employee == null || employee.Value < 0)
             {
+                _logger.LogError($"One or more of the employee properties are null or invalid. {JsonSerializer.Serialize(employee)}");
                 return BadRequest("Invalid employee data.");
             }
             try
             {
-                bool result = await _employeeRepository.UpdateEmployee(employee);
+                bool result = await _employeeRepository.UpdateEmployee(employee, id);
 
-                if (!result) return BadRequest();
+                if (!result)
+                {
+                    _logger.LogWarning($"Employee with ID {id} not found or update failed.");
+                    return BadRequest();
+                }
 
+                _logger.LogInformation($"Employee with ID {id} updated successfully: {JsonSerializer.Serialize(employee)}");
                 return NoContent();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while updating an employee: {ex.Message}");
                 return StatusCode(500, "An error occurred while adding an employee.");
             }
         }
@@ -76,7 +91,8 @@ namespace InterviewTest.Server.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Invalid employee ID.");
+                _logger.LogError($"Invalid employee ID: {id}");
+                return BadRequest();
             }
 
             try
@@ -85,10 +101,12 @@ namespace InterviewTest.Server.Controllers
 
                 if (!result) return BadRequest();
 
+                _logger.LogInformation($"Employee with ID {id} deleted successfully");
                 return NoContent();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while deleting an employee: {ex.Message}");
                 return StatusCode(500, "An error occurred while deleting the employee.");
             }
         }

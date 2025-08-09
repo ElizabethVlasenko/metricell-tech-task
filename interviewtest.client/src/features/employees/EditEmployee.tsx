@@ -24,8 +24,8 @@ export default function EditEmployee({
     defaultValues: initialValues,
   });
 
-  const onSubmit: SubmitHandler<Employee> = async (data) => {
-    await editEmployeeAsync(data);
+    const onSubmit: SubmitHandler<Employee> = async (data) => {
+        await editEmployeeAsync(data);
     onCloseModal?.();
   };
 

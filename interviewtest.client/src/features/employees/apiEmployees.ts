@@ -1,7 +1,7 @@
 import {
-  Employee,
-  EmployeeDto,
-  Employees,
+  type Employee,
+  type EmployeeDto,
+  type Employees,
 } from "../../utils/types/employeesTypes";
 
 export async function getAllEmployees() {
@@ -38,14 +38,19 @@ export async function deleteEmployeeById(id: number) {
 }
 
 export async function editEmployeeById(employee: Employee) {
-  console.log(JSON.stringify(employee));
-  try {
-    const response = await fetch(`api/employees`, {
-      method: "PUT",
+
+    const employeToUpdate: EmployeeDto = {
+        name: employee.name,
+        value: employee.value,
+    }
+
+    try {
+        const response = await fetch(`api/employees/${employee.id}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(employee),
+            body: JSON.stringify(employeToUpdate),
     });
 
     console.log(response);

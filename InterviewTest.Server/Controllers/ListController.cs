@@ -8,11 +8,13 @@ namespace InterviewTest.Server.Controllers
     [Route("api/[controller]")]
     public class ListController : ControllerBase
     {
-        IListRepository _listRepository;
+        private IListRepository _listRepository;
+        private ILogger<ListController> _logger;
 
-        public ListController(IListRepository listRepository)
+        public ListController(IListRepository listRepository, ILogger<ListController> logger)
         {
             _listRepository = listRepository;
+            _logger = logger;
         }
 
 
@@ -23,7 +25,10 @@ namespace InterviewTest.Server.Controllers
             if (result)
                 return Ok("Values incremented successfully.");
             else
+            {
+                _logger.LogWarning("An error occurred. No values were incremented.");
                 return BadRequest("No values were incremented.");
+            }
         }
 
         [HttpGet]

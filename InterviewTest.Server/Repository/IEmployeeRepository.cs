@@ -7,7 +7,7 @@ namespace InterviewTest.Server.Repository
     {
         Task<IEnumerable<Employee>> GetAllEmployees();
         Task<Employee> AddEmployee(EmployeeCreateDto employee);
-        Task<bool> UpdateEmployee(Employee employee);
+        Task<bool> UpdateEmployee(EmployeeUpdateDto employee, int id);
         Task<bool> DeleteEmployee(int id);
     }
 }
