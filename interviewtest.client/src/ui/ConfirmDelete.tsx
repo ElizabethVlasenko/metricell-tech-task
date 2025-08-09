@@ -17,7 +17,7 @@ export default function ConfirmDelete({
   error,
 }: ConfirmDeletePropsType) {
   return (
-    <div className="flex flex-col gap-5 w-md">
+    <div className="flex flex-col gap-5 w-md max-w-full">
       <Heading>Delete {resourceName}</Heading>
       <p>
         Are you sure you want to delete this {resourceName} permanently? This

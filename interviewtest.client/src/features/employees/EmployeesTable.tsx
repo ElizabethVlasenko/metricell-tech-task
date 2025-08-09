@@ -37,7 +37,8 @@ export default function EmployeesTable() {
           <Modal>
             <Modal.Open opens="newEmployee">
               <Button size="small" className="flex gap-2 items-center">
-                <Plus className="size-5" /> New entry
+                <Plus className="size-4 md:size-5" />
+                <span className="hidden md:block">New entry</span>
               </Button>
             </Modal.Open>
             <Modal.Window name="newEmployee">

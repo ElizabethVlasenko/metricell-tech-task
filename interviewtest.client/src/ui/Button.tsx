@@ -22,7 +22,7 @@ export default function Button(props: ButtonProps) {
   } = props;
 
   const baseStyles =
-    "border-2 font-bold inline-flex items-center justify-center rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer";
+    "border-2 font-bold inline-flex items-center justify-center rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer ";
 
   const variantStyles = {
     primary:
@@ -34,7 +34,7 @@ export default function Button(props: ButtonProps) {
   };
 
   const sizeStyles = {
-    small: "px-3 py-1.5 text-sm",
+    small: "px-1 py-1 md:px-3 md:py-1.5 text-sm ",
     medium: "px-4 py-2 text-[0.99rem]",
     large: "px-6 py-3 text-lg",
   };

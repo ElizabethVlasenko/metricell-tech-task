@@ -85,7 +85,7 @@ function Window({ children, name }: WindowPropsType) {
   return createPortal(
     <div className="fixed inset-0 z-[1000] backdrop-blur-sm transition-all duration-500">
       <div
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-4xl bg-gray-100 p-4 shadow-md transition-all duration-500 max-h-[85vh] flex flex-col min-w-[20vw]"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-4xl bg-gray-100 p-4 shadow-md transition-all duration-500 max-h-[85vh] flex flex-col min-w-[20vw] max-w-[90vw]"
         ref={ref}
       >
         <button
@@ -94,7 +94,7 @@ function Window({ children, name }: WindowPropsType) {
         >
           <X className="h-6 w-6 text-gray-600" />
         </button>
-        <div className="overflow-y-auto flex-grow p-4">
+        <div className="overflow-y-auto flex-grow p-4 w-full">
           {cloneElement(children, { onCloseModal: close })}
         </div>
       </div>

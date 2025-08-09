@@ -24,8 +24,8 @@ export default function EditEmployee({
     defaultValues: initialValues,
   });
 
-    const onSubmit: SubmitHandler<Employee> = async (data) => {
-        await editEmployeeAsync(data);
+  const onSubmit: SubmitHandler<Employee> = async (data) => {
+    await editEmployeeAsync(data);
     onCloseModal?.();
   };
 
@@ -43,7 +43,7 @@ export default function EditEmployee({
         )}
         <FormRow label={"Name"} error={errors.name?.message} required>
           <input
-            className="w-md bg-white rounded-2xl p-2 border border-gray-300"
+            className="w-md bg-white rounded-2xl p-2 border border-gray-300 max-w-full"
             type="text"
             id="name"
             {...register("name", {
@@ -51,18 +51,18 @@ export default function EditEmployee({
               minLength: {
                 value: 3,
                 message: "Name should be at least 3 characters long.",
-                },
-                pattern: {
-                    value: letterOnlyRegex,
-                    message: 'Only letters are allowed'
-                }
+              },
+              pattern: {
+                value: letterOnlyRegex,
+                message: "Only letters are allowed",
+              },
             })}
           />
         </FormRow>
 
         <FormRow label={"Value"} error={errors.value?.message} required>
           <input
-            className="w-md bg-white rounded-2xl p-2 border border-gray-300"
+            className="w-md bg-white rounded-2xl p-2 border border-gray-300 max-w-full"
             type="number"
             id="value"
             {...register("value", {

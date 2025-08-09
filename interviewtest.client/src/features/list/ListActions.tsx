@@ -16,7 +16,7 @@ export default function ListActions() {
 
   return (
     <div className="flex flex-col gap-4 flex-wrap">
-      <div className="flex gap-4">
+      <div className="flex flex-col-reverse gap-2 md:gap-4 md:flex-row">
         <div className="flex flex-col gap-2 items-start">
           <Button
             disabled={isLoadingValueSum}
