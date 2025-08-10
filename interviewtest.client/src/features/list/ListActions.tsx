@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import GroupValuesTable from "./GroupValuesTable";
 import { useGetEmployeeValueSum } from "./useGetEmployeeValueSum";
@@ -12,7 +13,15 @@ export default function ListActions() {
     refetchListValueSum,
   } = useGetEmployeeValueSum();
 
-  console.log(listValueSum);
+  const handleFetchListValueSum = async () => {
+    const result = await refetchListValueSum();
+
+    if (result.isSuccess) {
+      toast.success("Data loaded successfully!");
+    } else {
+      toast.error("Failed to load data.");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 flex-wrap">
@@ -20,7 +29,7 @@ export default function ListActions() {
         <div className="flex flex-col gap-2 items-start">
           <Button
             disabled={isLoadingValueSum}
-            onClick={() => refetchListValueSum()}
+            onClick={handleFetchListValueSum}
           >
             Get Employee Value Sum
           </Button>

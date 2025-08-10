@@ -6,6 +6,7 @@ export function useEmployees() {
     isLoading,
     data: employees,
     error,
+    refetch: refetchEmployees,
   } = useQuery({
     queryKey: ["employees"],
     queryFn: () => getAllEmployees(),
@@ -15,5 +16,6 @@ export function useEmployees() {
     isLoading,
     employees,
     error,
+    refetchEmployees,
   };
 }

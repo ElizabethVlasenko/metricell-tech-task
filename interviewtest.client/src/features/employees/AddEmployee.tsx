@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
-import { type Employee } from "../../utils/types/employeesTypes";
-import { useAddEmployee } from "./useAddEmployee";
 import Heading from "../../ui/Heading";
 import { letterOnlyRegex } from "../../utils/const/regexConst";
+import { type Employee } from "../../utils/types/employeesTypes";
+import { useAddEmployee } from "./useAddEmployee";
 
 type AddEmployeePropsType = {
   onCloseModal?: () => void;

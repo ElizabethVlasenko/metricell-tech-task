@@ -7,13 +7,13 @@ import EmployeeRow from "./EmployeeRow";
 import { useEmployees } from "./useEmployees";
 
 export default function EmployeesTable() {
-  const { isLoading, employees = [], error } = useEmployees();
+  const { isLoading, employees = [], error, refetchEmployees } = useEmployees();
 
   const totalNumberOfEmployees = employees.length;
 
   if (isLoading) {
     return (
-      <div className="text-xl font-medium text-center p-10 text-gray-600">
+      <div className="border border-gray-300 md:text-md bg-gray-50 md:rounded-4xl rounded-2xl overflow-hidden text-xl font-medium text-center p-10 text-gray-600">
         Loading...
       </div>
     );
@@ -21,8 +21,11 @@ export default function EmployeesTable() {
 
   if (error) {
     return (
-      <div className="text-xl font-medium text-center p-10 text-gray-600">
-        Error loading employees: {error?.message || "Something went wrong"}
+      <div className="border border-gray-300 md:text-md bg-gray-50 md:rounded-4xl rounded-2xl overflow-hidden text-xl font-medium text-center p-10 text-gray-600 flex flex-col gap-4 items-center">
+        <p>
+          Error loading employees: {error?.message || "Something went wrong"}
+        </p>
+        <Button onClick={() => refetchEmployees()}>Try again</Button>
       </div>
     );
   }
